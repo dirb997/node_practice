@@ -45,12 +45,14 @@ app.post('/view', function(req,res){
     db.serialize(()=>{
         db.each('SELECT id ID, name NAME FROM emp WHERE id = ?', [req.body.id], function(err, row){
             if(err){
-                res.send("Error encountered while looking for id");
-                return console.error(err.message);
+                console.error(err.message);
+                res.status(500).send("Internal Server Error");
+                return;
             }
             if(row){
                 res.send(`ID: ${row.ID}, Name: ${row.NAME}`);
                 console.log('DB entry displayed succesfully!');
+
                 setTimeout(()=>{
                     res.redirect('/');
                 }, 4000);
