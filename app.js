@@ -35,7 +35,7 @@ app.post('/add', function(req, res){
                 return console.log(err.message);
             }
             console.log('New User information has been added!');
-            res.send("The new user information has been inserted into the DB with the user ID = " + req.body.id + " and the name = " + req.body.name);
+            res.redirect('/');
         });
     });
 });
@@ -43,11 +43,16 @@ app.post('/add', function(req, res){
 //Search for user information
 app.post('/view', function(req,res){
     db.serialize(()=>{
-        db.each('SELECT id ID, name NAME FROM emp WHERE id = ?', [req.body.id], function(err,row){
-            res.send("Error encountered while looking for id");
-            return console.error(err.message);
+        db.each('SELECT id ID, name NAME FROM emp WHERE id = ?', [req.body.id], function(err, row){
+            if(err){
+                res.send("Error encountered while looking for id");
+                return console.error(err.message);
+            }
+            res.send(`ID: ${row.ID}, Name: ${row.NAME}`);
+            setTimeout(()=>{
+                res.redirect('/');
+            }, 4000);
         });
-        res.send(`ID: ${row.ID}, Name: ${row.NAME}`);
         console.log('DB entry displayed succesfully!');
     })
 });
@@ -60,7 +65,7 @@ app.post('/update', function(req, res){
                 res.send('Error has been encountered while the data was been updated.');
                 return console.error(err.message);
             }
-            res.send("DB entry has been updated successfully!");
+            res.redirect('/');
             console.log("Entry updated successfully.");
         });
     });
@@ -74,9 +79,21 @@ app.post('/delete', function(req, res){
                 res.send('');
                 return console.error(err.message);
             }
-            res.send('User information Deleted');
+            res.redirect('/');
             console.log('User Entry has been deleted successfully.');
         });
+    });
+});
+
+//Closing the DB connection
+app.get('/close', function(req, res){
+    db.close((err) => {
+        if(err){
+            res.send('There has been some error while trying to close the connection to the database');
+            return console.error(err.message);
+        }
+        console.log('Closing the connection to the Database');
+        req.send('The connection has been successfully closed.');
     });
 });
 
