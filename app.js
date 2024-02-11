@@ -52,6 +52,33 @@ app.post('/view', function(req,res){
     })
 });
 
+//Update user's information
+app.post('/update', function(req, res){
+    db.serialize(() => {
+        db.run('UPDATE emp SET name = ? WHERE id = ?', [req.body.name, req.body.id], function(err){
+            if(err){
+                res.send('Error has been encountered while the data was been updated.');
+                return console.error(err.message);
+            }
+            res.send("DB entry has been updated successfully!");
+            console.log("Entry updated successfully.");
+        });
+    });
+});
+
+//Delete user information
+app.post('/delete', function(req, res){
+    db.serialize(()=>{
+        db.run('DELETE FROM emp WHERE id = ?', req.body.id, function(err){
+            if(err){
+                res.send('');
+                return console.error(err.message);
+            }
+            res.send('User information Deleted');
+            console.log('User Entry has been deleted successfully.');
+        });
+    });
+});
 
 server.listen(3000, function(){
     console.log('Server is running in http://localhost:3000');
