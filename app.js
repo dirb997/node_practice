@@ -48,12 +48,16 @@ app.post('/view', function(req,res){
                 res.send("Error encountered while looking for id");
                 return console.error(err.message);
             }
-            res.send(`ID: ${row.ID}, Name: ${row.NAME}`);
-            setTimeout(()=>{
-                res.redirect('/');
-            }, 4000);
+            if(row){
+                res.send(`ID: ${row.ID}, Name: ${row.NAME}`);
+                console.log('DB entry displayed succesfully!');
+                setTimeout(()=>{
+                    res.redirect('/');
+                }, 4000);
+            }else{
+                res.status(404).send('User not found');
+            }
         });
-        console.log('DB entry displayed succesfully!');
     })
 });
 
