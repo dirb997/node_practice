@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Form Practice</title>
+</head>
+<body>
+    <header>
+        <h1>User Database Portal</h1>
+      </header>
+      <form action="/add" method="POST">
+        <fieldset>
+          <h3>Add new employee</h3>
+          <label>User ID</label>
+          <input type ="text" id = 'userID' name="id" required>
+          <br><br>
+          <label>Name</label>
+          <input type="text" id = "name" name="name" required>
+          <br><br>
+          <button type ="reset">Reset</button>
+          <button type ="submit">Submit</button>
+        </fieldset>  
+      </form>  
+
+      <form action="/view" method="POST">
+        <fieldset>
+          <h3>View an user information</h3>
+          <label>User ID</label>
+          <input type="text" id="userID" name="id" required>
+          <br><br>
+          <button type ="reset">Reset</button>
+          <button type ="submit">Submit</button>
+          <br><br><br>
+        </fieldset>
+       </form>
+
+       <form action="/update" method="POST">
+        <fieldset>
+          <h3>Update an user information</h3>
+          <label>User ID</label>
+          <input type ="text" id = 'userID' name="id" required>
+          <br><br>
+          <label>New Name</label>
+          <input type="text" id = "name" name="name" required>
+          <br><br>
+          <button type ="reset">Reset</button>
+          <button type ="submit">Submit</button>
+        </fieldset>
+       </form>
+      <form action="/delete" method="POST">
+        <fieldset>
+          <h3>Delete an user information</h3>
+          <label>User ID</label>
+          <input type ="text" id = 'userID' name="id" required>
+          <br><br>
+          <button type ="reset">Reset</button>
+          <button type ="submit">Submit</button>
+          <br><br><br>
+        </fieldset>
+       </form>
+
+       <footer>
+        <hr>
+        <h4>Copyrigth © 2024 Living in Japan. All rights reserved.</h4>
+      </footer>
+</body>
+</html>
